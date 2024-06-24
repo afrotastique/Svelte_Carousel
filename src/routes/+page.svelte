@@ -1,13 +1,16 @@
 <script lang="ts">
-import EmblaCarousel, { type EmblaOptionsType } from 'embla-carousel'
+import EmblaCarousel, {type EmblaOptionsType, type EmblaCarouselType} from 'embla-carousel'
+// import EmblaCarousel, { type EmblaOptionsType } from 'embla-carousel'
 import { addPrevNextBtnsClickHandlers } from '../components/EmblaCarouselArrowButtons'
 import { addDotBtnsAndClickHandlers } from '../components/EmblaCarouselDotButton'
+import Autoplay from 'embla-carousel-autoplay'
 import '../styles/base.css'
 import '../styles/sandbox.scss'
 import '../styles/embla.scss'
 import { onMount } from 'svelte';
 
-const OPTIONS: EmblaOptionsType = { slidesToScroll: 'auto' }
+const OPTIONS: EmblaOptionsType = { loop: true }
+
 
   let emblaNode;
   let viewportNode;
@@ -22,7 +25,19 @@ const OPTIONS: EmblaOptionsType = { slidesToScroll: 'auto' }
     nextBtnNode = emblaNode.querySelector('.embla__button--next');
     dotsNode = emblaNode.querySelector('.embla__dots');
     
-    const emblaApi = EmblaCarousel(viewportNode, OPTIONS)
+    const emblaApi = EmblaCarousel(viewportNode, OPTIONS, [Autoplay()])
+
+    const onNavButtonClick = (emblaApi: EmblaCarouselType): void => {
+    const autoplay = emblaApi?.plugins()?.autoplay
+    if (!autoplay) return
+
+    const resetOrStop =
+      autoplay.options.stopOnInteraction === false
+      ? autoplay.reset
+      : autoplay.stop
+
+  resetOrStop()
+}
 
 const removePrevNextBtnsClickHandlers = addPrevNextBtnsClickHandlers(
   emblaApi,
@@ -46,12 +61,12 @@ emblaApi.on('destroy', removeDotBtnsAndClickHandlers)
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
-    <title>Embla Carousel Slides To Scroll Vanilla</title>
+    <title>Svelte Carousel</title>
   </head>
 
   <body>
     <header>
-      <h1 class="header">Embla Carousel Slides To Scroll Vanilla</h1>
+      <h1 class="header">EYDS SvelteKit Exercise</h1>
     </header>
 
     <section class="embla">
