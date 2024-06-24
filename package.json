@@ -22,6 +22,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"embla-carousel": "8.1.5",
 		"embla-carousel-autoplay": "^8.1.5",
 		"embla-carousel-svelte": "^8.1.5"
 	}

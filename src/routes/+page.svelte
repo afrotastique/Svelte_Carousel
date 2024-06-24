@@ -1,30 +1,37 @@
 <script lang="ts">
-    import emblaCarouselSvelte from 'embla-carousel-svelte'
-    import Autoplay from 'embla-carousel-autoplay'
-  
+import EmblaCarousel, { type EmblaOptionsType } from 'embla-carousel'
+import { addPrevNextBtnsClickHandlers } from '../components/EmblaCarouselArrowButtons'
+import { addDotBtnsAndClickHandlers } from '../components/EmblaCarouselDotButton'
+import '../styles/base.css'
+import '../styles/sandbox.scss'
+import '../styles/embla.scss'
 
-    let emblaApi;
-    let options = { loop: true}
-    let plugins = [Autoplay()]
+const OPTIONS: EmblaOptionsType = { slidesToScroll: 'auto' }
+
+// const emblaNode = <HTMLElement>document.querySelector('.embla')
+// const viewportNode = <HTMLElement>emblaNode.querySelector('.embla__viewport')
+// const prevBtnNode = <HTMLElement>emblaNode.querySelector('.embla__button--prev')
+// const nextBtnNode = <HTMLElement>emblaNode.querySelector('.embla__button--next')
+// const dotsNode = <HTMLElement>emblaNode.querySelector('.embla__dots')
+
+
+
+// const emblaApi = EmblaCarousel(viewportNode, OPTIONS)
+
+// const removePrevNextBtnsClickHandlers = addPrevNextBtnsClickHandlers(
+//   emblaApi,
+//   prevBtnNode,
+//   nextBtnNode
+// )
+// const removeDotBtnsAndClickHandlers = addDotBtnsAndClickHandlers(
+//   emblaApi,
+//   dotsNode
+// )
+
+// emblaApi.on('destroy', removePrevNextBtnsClickHandlers)
+// emblaApi.on('destroy', removeDotBtnsAndClickHandlers)
     
 </script>
-
-<style lang="scss">  
-  @import 'src/styles/embla.scss';
-
-    .embla {    overflow: hidden;  }  
-    .embla__container {    display: flex;  }   
-    .embla__slide {    flex: 0 0 100%;    min-width: 0;  }
-
-</style>
-
-  <!-- <div class="embla" use:emblaCarouselSvelte="{{ options, plugins }}">
-    <div class="embla__container">
-      <div class="embla__slide">Slide 1</div>
-      <div class="embla__slide">Slide 2</div>
-      <div class="embla__slide">Slide 3</div>
-    </div>
-  </div> -->
 
   <html lang="en" class="theme-dark">
   <head>
@@ -103,21 +110,7 @@
     </section>
 
     <footer class="footer">
-      <a
-        class="footer__link"
-        href="https://github.com/davidjerleke/embla-carousel"
-      >
-        <svg
-          class="footer__link__svg"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-        >
-          <path
-            d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
-          />
-        </svg>
-        <span class="footer__link__text">Visit on GitHub</span>
-      </a>
+    
     </footer>
 
     <noscript> You need to enable JavaScript to run this app. </noscript>
