@@ -5,32 +5,38 @@ import { addDotBtnsAndClickHandlers } from '../components/EmblaCarouselDotButton
 import '../styles/base.css'
 import '../styles/sandbox.scss'
 import '../styles/embla.scss'
+import { onMount } from 'svelte';
 
 const OPTIONS: EmblaOptionsType = { slidesToScroll: 'auto' }
 
-// const emblaNode = <HTMLElement>document.querySelector('.embla')
-// const viewportNode = <HTMLElement>emblaNode.querySelector('.embla__viewport')
-// const prevBtnNode = <HTMLElement>emblaNode.querySelector('.embla__button--prev')
-// const nextBtnNode = <HTMLElement>emblaNode.querySelector('.embla__button--next')
-// const dotsNode = <HTMLElement>emblaNode.querySelector('.embla__dots')
+  let emblaNode;
+  let viewportNode;
+  let prevBtnNode;
+  let nextBtnNode;
+  let dotsNode;
 
-
-
-// const emblaApi = EmblaCarousel(viewportNode, OPTIONS)
-
-// const removePrevNextBtnsClickHandlers = addPrevNextBtnsClickHandlers(
-//   emblaApi,
-//   prevBtnNode,
-//   nextBtnNode
-// )
-// const removeDotBtnsAndClickHandlers = addDotBtnsAndClickHandlers(
-//   emblaApi,
-//   dotsNode
-// )
-
-// emblaApi.on('destroy', removePrevNextBtnsClickHandlers)
-// emblaApi.on('destroy', removeDotBtnsAndClickHandlers)
+  onMount(() => {
+    emblaNode = document.querySelector('.embla');
+    viewportNode = emblaNode.querySelector('.embla__viewport');
+    prevBtnNode = emblaNode.querySelector('.embla__button--prev');
+    nextBtnNode = emblaNode.querySelector('.embla__button--next');
+    dotsNode = emblaNode.querySelector('.embla__dots');
     
+    const emblaApi = EmblaCarousel(viewportNode, OPTIONS)
+
+const removePrevNextBtnsClickHandlers = addPrevNextBtnsClickHandlers(
+  emblaApi,
+  prevBtnNode,
+  nextBtnNode
+)
+const removeDotBtnsAndClickHandlers = addDotBtnsAndClickHandlers(
+  emblaApi,
+  dotsNode
+)
+
+emblaApi.on('destroy', removePrevNextBtnsClickHandlers)
+emblaApi.on('destroy', removeDotBtnsAndClickHandlers)
+  });    
 </script>
 
   <html lang="en" class="theme-dark">
@@ -114,7 +120,6 @@ const OPTIONS: EmblaOptionsType = { slidesToScroll: 'auto' }
     </footer>
 
     <noscript> You need to enable JavaScript to run this app. </noscript>
-    <script src="src/js/index.ts"></script>
   </body>
 </html>
   
