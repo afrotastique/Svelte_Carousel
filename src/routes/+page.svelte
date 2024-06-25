@@ -1,12 +1,10 @@
 <script lang="ts">
 import EmblaCarousel, {type EmblaOptionsType, type EmblaCarouselType} from 'embla-carousel'
-// import EmblaCarousel, { type EmblaOptionsType } from 'embla-carousel'
 import { addPrevNextBtnsClickHandlers } from '../components/EmblaCarouselArrowButtons'
 import { addDotBtnsAndClickHandlers } from '../components/EmblaCarouselDotButton'
 import Autoplay from 'embla-carousel-autoplay'
-import '../styles/base.css'
-import '../styles/sandbox.scss'
-import '../styles/embla.scss'
+import '../styles/main.scss'
+import '../styles/carousel.scss'
 import { onMount } from 'svelte';
 
 const OPTIONS: EmblaOptionsType = { loop: true }
@@ -23,7 +21,6 @@ const OPTIONS: EmblaOptionsType = { loop: true }
     viewportNode = emblaNode.querySelector('.embla__viewport');
     prevBtnNode = emblaNode.querySelector('.embla__button--prev');
     nextBtnNode = emblaNode.querySelector('.embla__button--next');
-    dotsNode = emblaNode.querySelector('.embla__dots');
     
     const emblaApi = EmblaCarousel(viewportNode, OPTIONS, [Autoplay()])
 
@@ -43,10 +40,6 @@ const removePrevNextBtnsClickHandlers = addPrevNextBtnsClickHandlers(
   emblaApi,
   prevBtnNode,
   nextBtnNode
-)
-const removeDotBtnsAndClickHandlers = addDotBtnsAndClickHandlers(
-  emblaApi,
-  dotsNode
 )
 
 emblaApi.on('destroy', removePrevNextBtnsClickHandlers)
@@ -73,34 +66,35 @@ emblaApi.on('destroy', removeDotBtnsAndClickHandlers)
       <div class="embla__viewport">
         <div class="embla__container">
           <div class="embla__slide">
-            <div class="embla__slide__number">1</div>
+              <img class="card_image" src="/empireState.jpg" alt="image1" />
+              <!-- <div class="overlay-text">Empire State Building</div> -->
           </div>
           <div class="embla__slide">
-            <div class="embla__slide__number">2</div>
+            <img class="card_image" src="/Paris.jpg" alt="image1" />
           </div>
           <div class="embla__slide">
-            <div class="embla__slide__number">3</div>
+            <img class="card_image" src="/aquarium.jpg" alt="image1" />
           </div>
           <div class="embla__slide">
-            <div class="embla__slide__number">4</div>
+            <div class="card_image">4</div>
           </div>
           <div class="embla__slide">
-            <div class="embla__slide__number">5</div>
+            <div class="card_image">5</div>
           </div>
           <div class="embla__slide">
-            <div class="embla__slide__number">6</div>
+            <div class="card_image">6</div>
           </div>
           <div class="embla__slide">
-            <div class="embla__slide__number">7</div>
+            <div class="card_image">7</div>
           </div>
           <div class="embla__slide">
-            <div class="embla__slide__number">8</div>
+            <div class="card_image">8</div>
           </div>
           <div class="embla__slide">
-            <div class="embla__slide__number">9</div>
+            <div class="card_image">9</div>
           </div>
           <div class="embla__slide">
-            <div class="embla__slide__number">10</div>
+            <div class="card_image">10</div>
           </div>
         </div>
       </div>
@@ -126,7 +120,6 @@ emblaApi.on('destroy', removeDotBtnsAndClickHandlers)
           </button>
         </div>
 
-        <div class="embla__dots"></div>
       </div>
     </section>
 
