@@ -16,35 +16,52 @@ const OPTIONS: EmblaOptionsType = { loop: true }
   let nextBtnNode;
   let dotsNode;
 
+  // slide content
+  let slides = [
+    { imageUrl: '/empireState.jpg', altText: 'Empire State Building', 
+    overlayText: 'Empire State' },
+    { imageUrl: '/Paris.jpg', altText: 'Eiffel Tower', overlayText: 'Eiffel Tower' },
+    { imageUrl: '/aquarium.jpg', altText: 'Aquarium', overlayText: 'Aquarium' },
+    { imageUrl: '/aquarium.jpg', altText: 'Aquarium', overlayText: 'Aquarium' },
+    { imageUrl: '/aquarium.jpg', altText: 'Aquarium', overlayText: 'Aquarium' },
+    { imageUrl: '/aquarium.jpg', altText: 'Aquarium', overlayText: 'Aquarium' },
+    { imageUrl: '/aquarium.jpg', altText: 'Aquarium', overlayText: 'Aquarium' },
+  ];
+
   onMount(() => {
     emblaNode = document.querySelector('.embla');
     viewportNode = emblaNode.querySelector('.embla__viewport');
     prevBtnNode = emblaNode.querySelector('.embla__button--prev');
     nextBtnNode = emblaNode.querySelector('.embla__button--next');
     
-    const emblaApi = EmblaCarousel(viewportNode, OPTIONS, [Autoplay()])
+    // autoplay stop on hover needs work
+    const emblaApi = EmblaCarousel(viewportNode, OPTIONS, [Autoplay({stopOnMouseEnter: true, stopOnInteraction: false})])
 
     const onNavButtonClick = (emblaApi: EmblaCarouselType): void => {
-    const autoplay = emblaApi?.plugins()?.autoplay
-    if (!autoplay) return
+      const autoplay = emblaApi?.plugins()?.autoplay;
+      if (!autoplay) return;
 
-    const resetOrStop =
-      autoplay.options.stopOnInteraction === false
-      ? autoplay.reset
-      : autoplay.stop
+      const resetOrStop =
+        autoplay.options.stopOnInteraction === false
+        ? autoplay.reset
+        : autoplay.stop;
 
-  resetOrStop()
-}
+      resetOrStop();
+    };
 
-const removePrevNextBtnsClickHandlers = addPrevNextBtnsClickHandlers(
-  emblaApi,
-  prevBtnNode,
-  nextBtnNode
-)
+    
 
-emblaApi.on('destroy', removePrevNextBtnsClickHandlers)
-emblaApi.on('destroy', removeDotBtnsAndClickHandlers)
-  });    
+
+    const removePrevNextBtnsClickHandlers = addPrevNextBtnsClickHandlers(
+      emblaApi,
+      prevBtnNode,
+      nextBtnNode
+    );
+
+    emblaApi.on('destroy', removePrevNextBtnsClickHandlers);
+    emblaApi.on('destroy', removeDotBtnsAndClickHandlers);
+  });
+
 </script>
 
   <html lang="en" class="theme-dark">
@@ -63,41 +80,20 @@ emblaApi.on('destroy', removeDotBtnsAndClickHandlers)
     </header>
 
     <section class="embla">
-      <div class="embla__viewport">
-        <div class="embla__container">
-          <div class="embla__slide">
-              <img class="card_image" src="/empireState.jpg" alt="image1" />
-              <!-- <div class="overlay-text">Empire State Building</div> -->
-          </div>
-          <div class="embla__slide">
-            <img class="card_image" src="/Paris.jpg" alt="image1" />
-          </div>
-          <div class="embla__slide">
-            <img class="card_image" src="/aquarium.jpg" alt="image1" />
-          </div>
-          <div class="embla__slide">
-            <div class="card_image">4</div>
-          </div>
-          <div class="embla__slide">
-            <div class="card_image">5</div>
-          </div>
-          <div class="embla__slide">
-            <div class="card_image">6</div>
-          </div>
-          <div class="embla__slide">
-            <div class="card_image">7</div>
-          </div>
-          <div class="embla__slide">
-            <div class="card_image">8</div>
-          </div>
-          <div class="embla__slide">
-            <div class="card_image">9</div>
-          </div>
-          <div class="embla__slide">
-            <div class="card_image">10</div>
+        <div class="embla__viewport">
+          <div class="embla__container">
+            {#each slides as slide}
+              <div class="embla__slide">
+                <img class="card_image" src={slide.imageUrl} alt={slide.altText} />
+                {#if slide.overlayText}
+                  <div class="overlay-text">
+                    <p>{slide.overlayText}</p>
+                  </div>
+                {/if}
+              </div>
+            {/each}
           </div>
         </div>
-      </div>
 
       <div class="embla__controls">
         <div class="embla__buttons">
