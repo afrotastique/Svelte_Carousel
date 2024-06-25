@@ -1,36 +1,67 @@
 <script lang="ts">
-import EmblaCarousel, { type EmblaOptionsType } from 'embla-carousel'
+import EmblaCarousel, {type EmblaOptionsType, type EmblaCarouselType} from 'embla-carousel'
 import { addPrevNextBtnsClickHandlers } from '../components/EmblaCarouselArrowButtons'
 import { addDotBtnsAndClickHandlers } from '../components/EmblaCarouselDotButton'
-import '../styles/base.css'
-import '../styles/sandbox.scss'
-import '../styles/embla.scss'
+import Autoplay from 'embla-carousel-autoplay'
+import '../styles/main.scss'
+import '../styles/carousel.scss'
+import { onMount } from 'svelte';
 
-const OPTIONS: EmblaOptionsType = { slidesToScroll: 'auto' }
-
-// const emblaNode = <HTMLElement>document.querySelector('.embla')
-// const viewportNode = <HTMLElement>emblaNode.querySelector('.embla__viewport')
-// const prevBtnNode = <HTMLElement>emblaNode.querySelector('.embla__button--prev')
-// const nextBtnNode = <HTMLElement>emblaNode.querySelector('.embla__button--next')
-// const dotsNode = <HTMLElement>emblaNode.querySelector('.embla__dots')
+const OPTIONS: EmblaOptionsType = { loop: true }
 
 
+  let emblaNode;
+  let viewportNode;
+  let prevBtnNode;
+  let nextBtnNode;
+  let dotsNode;
 
-// const emblaApi = EmblaCarousel(viewportNode, OPTIONS)
+  // slide content
+  let slides = [
+    { imageUrl: '/empireState.jpg', altText: 'Empire State Building', 
+    overlayText: 'Empire State' },
+    { imageUrl: '/Paris.jpg', altText: 'Eiffel Tower', overlayText: 'Eiffel Tower' },
+    { imageUrl: '/aquarium.jpg', altText: 'Aquarium', overlayText: 'Aquarium' },
+    { imageUrl: '/aquarium.jpg', altText: 'Aquarium', overlayText: 'Aquarium' },
+    { imageUrl: '/aquarium.jpg', altText: 'Aquarium', overlayText: 'Aquarium' },
+    { imageUrl: '/aquarium.jpg', altText: 'Aquarium', overlayText: 'Aquarium' },
+    { imageUrl: '/aquarium.jpg', altText: 'Aquarium', overlayText: 'Aquarium' },
+  ];
 
-// const removePrevNextBtnsClickHandlers = addPrevNextBtnsClickHandlers(
-//   emblaApi,
-//   prevBtnNode,
-//   nextBtnNode
-// )
-// const removeDotBtnsAndClickHandlers = addDotBtnsAndClickHandlers(
-//   emblaApi,
-//   dotsNode
-// )
-
-// emblaApi.on('destroy', removePrevNextBtnsClickHandlers)
-// emblaApi.on('destroy', removeDotBtnsAndClickHandlers)
+  onMount(() => {
+    emblaNode = document.querySelector('.embla');
+    viewportNode = emblaNode.querySelector('.embla__viewport');
+    prevBtnNode = emblaNode.querySelector('.embla__button--prev');
+    nextBtnNode = emblaNode.querySelector('.embla__button--next');
     
+    // autoplay stop on hover needs work
+    const emblaApi = EmblaCarousel(viewportNode, OPTIONS, [Autoplay({stopOnMouseEnter: true, stopOnInteraction: false})])
+
+    const onNavButtonClick = (emblaApi: EmblaCarouselType): void => {
+      const autoplay = emblaApi?.plugins()?.autoplay;
+      if (!autoplay) return;
+
+      const resetOrStop =
+        autoplay.options.stopOnInteraction === false
+        ? autoplay.reset
+        : autoplay.stop;
+
+      resetOrStop();
+    };
+
+    
+
+
+    const removePrevNextBtnsClickHandlers = addPrevNextBtnsClickHandlers(
+      emblaApi,
+      prevBtnNode,
+      nextBtnNode
+    );
+
+    emblaApi.on('destroy', removePrevNextBtnsClickHandlers);
+    emblaApi.on('destroy', removeDotBtnsAndClickHandlers);
+  });
+
 </script>
 
   <html lang="en" class="theme-dark">
@@ -40,49 +71,29 @@ const OPTIONS: EmblaOptionsType = { slidesToScroll: 'auto' }
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
-    <title>Embla Carousel Slides To Scroll Vanilla</title>
+    <title>Svelte Carousel</title>
   </head>
 
   <body>
     <header>
-      <h1 class="header">Embla Carousel Slides To Scroll Vanilla</h1>
+      <h1 class="header">EYDS SvelteKit Exercise</h1>
     </header>
 
     <section class="embla">
-      <div class="embla__viewport">
-        <div class="embla__container">
-          <div class="embla__slide">
-            <div class="embla__slide__number">1</div>
-          </div>
-          <div class="embla__slide">
-            <div class="embla__slide__number">2</div>
-          </div>
-          <div class="embla__slide">
-            <div class="embla__slide__number">3</div>
-          </div>
-          <div class="embla__slide">
-            <div class="embla__slide__number">4</div>
-          </div>
-          <div class="embla__slide">
-            <div class="embla__slide__number">5</div>
-          </div>
-          <div class="embla__slide">
-            <div class="embla__slide__number">6</div>
-          </div>
-          <div class="embla__slide">
-            <div class="embla__slide__number">7</div>
-          </div>
-          <div class="embla__slide">
-            <div class="embla__slide__number">8</div>
-          </div>
-          <div class="embla__slide">
-            <div class="embla__slide__number">9</div>
-          </div>
-          <div class="embla__slide">
-            <div class="embla__slide__number">10</div>
+        <div class="embla__viewport">
+          <div class="embla__container">
+            {#each slides as slide}
+              <div class="embla__slide">
+                <img class="card_image" src={slide.imageUrl} alt={slide.altText} />
+                {#if slide.overlayText}
+                  <div class="overlay-text">
+                    <p>{slide.overlayText}</p>
+                  </div>
+                {/if}
+              </div>
+            {/each}
           </div>
         </div>
-      </div>
 
       <div class="embla__controls">
         <div class="embla__buttons">
@@ -105,7 +116,6 @@ const OPTIONS: EmblaOptionsType = { slidesToScroll: 'auto' }
           </button>
         </div>
 
-        <div class="embla__dots"></div>
       </div>
     </section>
 
@@ -114,7 +124,6 @@ const OPTIONS: EmblaOptionsType = { slidesToScroll: 'auto' }
     </footer>
 
     <noscript> You need to enable JavaScript to run this app. </noscript>
-    <script src="src/js/index.ts"></script>
   </body>
 </html>
   
