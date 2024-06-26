@@ -19,14 +19,36 @@ const OPTIONS: EmblaOptionsType = { loop: true }
   // slide content
   let slides = [
     { imageUrl: '/empireState.jpg', altText: 'Empire State Building', 
-    overlayText: 'Empire State' },
-    { imageUrl: '/Paris.jpg', altText: 'Eiffel Tower', overlayText: 'Eiffel Tower' },
-    { imageUrl: '/aquarium.jpg', altText: 'Aquarium', overlayText: 'Aquarium' },
-    { imageUrl: '/aquarium.jpg', altText: 'Aquarium', overlayText: 'Aquarium' },
-    { imageUrl: '/aquarium.jpg', altText: 'Aquarium', overlayText: 'Aquarium' },
-    { imageUrl: '/aquarium.jpg', altText: 'Aquarium', overlayText: 'Aquarium' },
-    { imageUrl: '/aquarium.jpg', altText: 'Aquarium', overlayText: 'Aquarium' },
+    overlayText: 'Empire State',
+    videoUrl: './newYork.mp4'  },
+    { imageUrl: '/Paris.jpg', altText: 'Eiffel Tower', overlayText: 'Eiffel Tower',
+      videoUrl: './Paris.mp4'
+     },
+    { imageUrl: '/aquarium.jpg', altText: 'Aquarium', overlayText: 'Aquarium',
+      videoUrl: './aquarium.mp4'
+     },
+    { imageUrl: '/ripley.jpg', altText: "Ripleys's", overlayText: "Ripley's",
+      videoUrl: './ripley.mp4'
+     },
+    { imageUrl: '/mountain.jpg', altText: 'Mountain', overlayText: 'Mountain',
+      videoUrl: './mountain.mp4'
+     },
+    { imageUrl: '/cafe.jpg', altText: 'Cafe', overlayText: 'Cafe',
+      videoUrl: './cafe.mp4'
+     },
+     { imageUrl: '/plane.jpg', altText: 'Plane', overlayText: 'Plane',
+      videoUrl: './plane.mp4'
+     },
   ];
+
+// playVideo and pauseVideo
+const playVideo = (event) => {
+    event.target.play();
+  };
+
+  const pauseVideo = (event) => {
+    event.target.pause();
+  };
 
   onMount(() => {
     emblaNode = document.querySelector('.embla');
@@ -47,9 +69,7 @@ const OPTIONS: EmblaOptionsType = { loop: true }
         : autoplay.stop;
 
       resetOrStop();
-    };
-
-    
+    };   
 
 
     const removePrevNextBtnsClickHandlers = addPrevNextBtnsClickHandlers(
@@ -87,7 +107,13 @@ const OPTIONS: EmblaOptionsType = { loop: true }
                 <img class="card_image" src={slide.imageUrl} alt={slide.altText} />
                 {#if slide.overlayText}
                   <div class="overlay-text">
-                    <p>{slide.overlayText}</p>
+                    <h3>{slide.overlayText}</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos molestiae at illum.</p> 
+                    <button class="button" on:click="{() => window.location.href = 'https://example.com'}">
+                      Learn More</button> 
+                  </div>
+                  <div class="video_card">
+                    <video class="video" src={slide.videoUrl} on:mouseenter={playVideo} on:mouseleave={pauseVideo}  muted loop></video>
                   </div>
                 {/if}
               </div>
