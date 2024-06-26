@@ -27,15 +27,21 @@ const OPTIONS: EmblaOptionsType = { loop: true }
     { imageUrl: '/aquarium.jpg', altText: 'Aquarium', overlayText: 'Aquarium',
       videoUrl: './aquarium.mp4'
      },
-    { imageUrl: '/aquarium.jpg', altText: 'Aquarium', overlayText: 'Aquarium',
-      videoUrl: ''
+    { imageUrl: '/ripley.jpg', altText: "Ripleys's", overlayText: "Ripley's",
+      videoUrl: './ripley.mp4'
      },
-    { imageUrl: '/aquarium.jpg', altText: 'Aquarium', overlayText: 'Aquarium' },
-    { imageUrl: '/aquarium.jpg', altText: 'Aquarium', overlayText: 'Aquarium' },
-    { imageUrl: '/aquarium.jpg', altText: 'Aquarium', overlayText: 'Aquarium' },
+    { imageUrl: '/mountain.jpg', altText: 'Mountain', overlayText: 'Mountain',
+      videoUrl: './mountain.mp4'
+     },
+    { imageUrl: '/cafe.jpg', altText: 'Cafe', overlayText: 'Cafe',
+      videoUrl: './cafe.mp4'
+     },
+     { imageUrl: '/plane.jpg', altText: 'Plane', overlayText: 'Plane',
+      videoUrl: './plane.mp4'
+     },
   ];
 
-// Define playVideo and pauseVideo
+// playVideo and pauseVideo
 const playVideo = (event) => {
     event.target.play();
   };
@@ -102,7 +108,9 @@ const playVideo = (event) => {
                 {#if slide.overlayText}
                   <div class="overlay-text">
                     <h3>{slide.overlayText}</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos molestiae at illum.</p>  
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos molestiae at illum.</p> 
+                    <button class="button" on:click="{() => window.location.href = 'https://example.com'}">
+                      Learn More</button> 
                   </div>
                   <div class="video_card">
                     <video class="video" src={slide.videoUrl} on:mouseenter={playVideo} on:mouseleave={pauseVideo}  muted loop></video>

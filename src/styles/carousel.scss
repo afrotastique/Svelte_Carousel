@@ -1,5 +1,4 @@
   .embla {
-    // max-width: 48rem;
     margin: auto;
     --slide-height: 22rem;
     --slide-spacing: 1rem;
@@ -7,24 +6,20 @@
 
   // Default max-width for small screens
   max-width: 90vw;
-  // --slide-size: 30vw;
 
   // Medium devices (768px and up)
   @media (min-width: 768px) {
-    max-width: 80%;
-    // --slide-size: 35%;
+    max-width: 70vw;
   }
 
   // Large devices (992px and up)
   @media (min-width: 992px) {
-    max-width: 60rem;
-    // --slide-size: 30%;
+    max-width: 60vw;
   }
 
   // Extra large devices (1200px and up)
   @media (min-width: 1200px) {
-    max-width: 75vw;
-    // --slide-size: 15vw;
+    max-width: 55vw;
   }
   }
   .embla__viewport {
@@ -47,6 +42,7 @@
     // Default slide size for small screens
     flex: 0 0 70%;
     max-width: 200px;
+    min-width: 195px;
 
     // Slide size for medium screens
     @media screen and (min-width: 768px) {
@@ -55,12 +51,10 @@
 
     // Large devices (992px and up)
     @media (min-width: 992px) {
-      // max-width: 60rem;
       flex: 0 0 30%;
     }
     // Extra large devices (1200px and up)
     @media (min-width: 1200px) {
-    // max-width: 75vw;
     flex: 0 0 15vw;
   }
   }
@@ -169,7 +163,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    color: white; /* Text color */
+    color: white; 
     background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */ 
     opacity: 0; /* Hide by default */
     transition: opacity 0.5s ease; /* Smooth transition */
@@ -179,8 +173,20 @@
     p{
       font-size: 10px;
       text-align: center;
+      padding: 5px;
+    }
+    .button {
+      pointer-events: all;
+      margin-top: 10px; 
+      padding: 8px 16px; 
+      background-color: #d4dfeb; 
+      color: rgb(2, 2, 2); 
+      border: none;
+      border-radius: .6rem;
+      cursor: pointer;
     }
   }
+
   .embla__slide:hover .overlay-text {
     opacity: 1; /* Show text on hover */
     z-index: 2;
@@ -195,10 +201,10 @@
     position: absolute;
     overflow: hidden;
     border-radius: 1.8rem;
-    top: 0; /* Added units */
-    left: 10px; /* Added units */
-    right: 0; /* Added units */
-    bottom: 0; /* Added units */
+    top: 0;
+    left: 10px; 
+    right: 0; 
+    bottom: 0; 
     display: flex;
     align-items: center;
     justify-content: center;
