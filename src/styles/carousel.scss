@@ -64,16 +64,6 @@
     flex: 0 0 15vw;
   }
   }
-  .embla__slide__number {
-    box-shadow: inset 0 0 0 0.2rem var(--detail-medium-contrast);
-    border-radius: 1.8rem;
-    font-size: 4rem;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: var(--slide-height);
-  }
   .embla__controls {
     display: grid;
     grid-template-columns: auto 1fr;
@@ -169,20 +159,57 @@
   }
 
   .overlay-text {
+    pointer-events: none;
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     color: white; /* Text color */
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */ 
     opacity: 0; /* Hide by default */
     transition: opacity 0.5s ease; /* Smooth transition */
-    font-size: 20px; /* Example text size */
+    h3{
+      font-size: 20px;
+    }
+    p{
+      font-size: 10px;
+      text-align: center;
+    }
   }
   .embla__slide:hover .overlay-text {
     opacity: 1; /* Show text on hover */
+    z-index: 2;
+  }
+   
+  .embla__slide:hover .video_card  {
+    opacity: 1; /* Show video on hover */
+    z-index: 1;
+  }
+  .video_card {
+    max-width: 200px;
+    position: absolute;
+    overflow: hidden;
+    border-radius: 1.8rem;
+    top: 0; /* Added units */
+    left: 10px; /* Added units */
+    right: 0; /* Added units */
+    bottom: 0; /* Added units */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    opacity: 0; /* Hide by default */
+    transition: opacity 0.5s ease; /* Smooth transition */
+  
+    .video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+
+    }
   }
